@@ -1,0 +1,28 @@
+services:
+  idun-agent:
+    build:
+      context: ../..
+      dockerfile: examples/idun_compress_agent/Dockerfile
+    environment:
+      COMPRESS_API_KEY: ${COMPRESS_API_KEY:-}
+      AGENT_SYSTEM_PROMPT: ${AGENT_SYSTEM_PROMPT:-}
+      COMPRESS_APPEND_META_FOOTER: ${COMPRESS_APPEND_META_FOOTER:-true}
+      COMPRESS_V2_URL: ${COMPRESS_V2_URL:-https://compress.lightreach.io/api/v2/complete}
+      COMPRESS_OPENAI_BASE_URL: ${COMPRESS_OPENAI_BASE_URL:-https://api.compress.lightreach.io/v1}
+      COMPRESS_USE_OPENAI_COMPAT: ${COMPRESS_USE_OPENAI_COMPAT:-0}
+      COMPRESS_MODEL: ${COMPRESS_MODEL:-lightreach}
+      COMPRESS_DESIRED_HLE: ${COMPRESS_DESIRED_HLE:-25}
+      COMPRESS_COMPRESS: ${COMPRESS_COMPRESS:-true}
+      COMPRESS_LLM_PROVIDER: ${COMPRESS_LLM_PROVIDER:-}
+      COMPRESS_REQUEST_TIMEOUT: ${COMPRESS_REQUEST_TIMEOUT:-120}
+      COMPRESS_TAG_TEAM: ${COMPRESS_TAG_TEAM:-platform}
+      COMPRESS_TAG_ENVIRONMENT: ${COMPRESS_TAG_ENVIRONMENT:-development}
+      COMPRESS_TAG_FEATURE: ${COMPRESS_TAG_FEATURE:-idun-agent}
+    ports:
+      - "8800:8800"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8800/health').raise_for_status()"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 20s

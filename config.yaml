@@ -1,0 +1,12 @@
+server:
+  api:
+    port: 8800
+
+agent:
+  type: LANGGRAPH
+  config:
+    name: "Incident triage copilot (Idun + LightReach demo)"
+    graph_definition: "./agent.py:workflow"
+    checkpointer:
+      type: sqlite
+      db_url: "sqlite:///idun_compress_checkpoints.db"

@@ -1,0 +1,6 @@
+idun-agent-engine==0.5.2
+langgraph==1.0.5
+langgraph-prebuilt==1.0.5
+langgraph-checkpoint==3.0.1
+python-dotenv>=1.0.0,<2.0.0
+requests>=2.31.0,<3.0.0
